@@ -9,7 +9,8 @@ export function generateHref(item: FileOrFolder, slug: string[]) {
 export function generate_download_url(file_path: string[]): string {
   if (file_path[0] === '合集系列') {
     const b2Path = ['`【合集系列】', ...file_path.slice(1)]
-    return `https://galgamedownload.date/${b2Path.map(encodeURIComponent).join('/')}`
+    // galgamedownload.date 的 Cloudflare 防火墙要求带 X-Amz-Signature 参数，否则会被拦截
+    return `https://galgamedownload.date/${b2Path.map(encodeURIComponent).join('/')}?X-Amz-Signature=1`
   } else {
     const url = 'https://zd.shinnku.top/file/shinnku/'
     return `${url}${file_path.map(encodeURIComponent).join('/')}`
